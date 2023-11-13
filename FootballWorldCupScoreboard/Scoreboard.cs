@@ -1,6 +1,6 @@
 ﻿namespace FootballWorldCupScoreboard
 {
-    public class Class1
+    public class Scoreboard
     {
 
     }
