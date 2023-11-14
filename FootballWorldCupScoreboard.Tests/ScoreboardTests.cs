@@ -39,7 +39,7 @@ namespace FootballWorldCupScoreboard.Tests
             // Arrange
 
             var scoreboard = new Scoreboard();
-            var match = new Match() { HomeTeam = "Barcelona", AwayTeam = "Madrid" };
+            var match = new Match("Barcelona", "Madrid");
 
             // Act
 
