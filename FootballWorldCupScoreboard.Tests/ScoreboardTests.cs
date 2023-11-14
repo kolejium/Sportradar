@@ -33,5 +33,24 @@ namespace FootballWorldCupScoreboard.Tests
             Assert.Throws<ArgumentException>(() => scoreboard.Start("Barcelona", null));
             Assert.Throws<ArgumentException>(() => scoreboard.Start(string.Empty, "Manchester"));
         }
+
+        public void Start_OnSuccess_ReturnsNewMatchWithInitScores()
+        {
+            // Arrange
+
+            var scoreboard = new Scoreboard();
+            var match = new Match() { HomeTeam = "Barcelona", AwayTeam = "Madrid" };
+
+            // Act
+
+            var result = scoreboard.Start("Barcelona", "Madrid");
+
+            // Assert
+            
+            Assert.Equal(match.HomeTeam, result.HomeTeam);
+            Assert.Equal(match.AwayTeam, result.AwayTeam);
+            Assert.Equal(match.HomeTeamScore, 0);
+            Assert.Equal(match.AwayTeamScore, 0);
+        }
     }
 }
