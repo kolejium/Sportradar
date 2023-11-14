@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace FootballWorldCupScoreboard.Tests
 {
     public class ScoreboardTests
