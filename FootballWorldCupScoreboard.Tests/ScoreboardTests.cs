@@ -50,8 +50,8 @@ namespace FootballWorldCupScoreboard.Tests
             
             Assert.Equal(match.HomeTeam, result.HomeTeam);
             Assert.Equal(match.AwayTeam, result.AwayTeam);
-            Assert.Equal(match.HomeTeamScore, 0);
-            Assert.Equal(match.AwayTeamScore, 0);
+            Assert.Equal(0, result.HomeTeamScore);
+            Assert.Equal(0, result.AwayTeamScore);
         }
     }
 }
