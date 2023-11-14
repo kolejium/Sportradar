@@ -34,6 +34,7 @@ namespace FootballWorldCupScoreboard.Tests
             Assert.Throws<ArgumentException>(() => scoreboard.Start(string.Empty, "Manchester"));
         }
 
+        [Fact]
         public void Start_OnSuccess_ReturnsNewMatchWithInitScores()
         {
             // Arrange
