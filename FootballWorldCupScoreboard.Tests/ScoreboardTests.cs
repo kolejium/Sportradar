@@ -53,5 +53,45 @@ namespace FootballWorldCupScoreboard.Tests
             Assert.Equal(0, result.HomeTeamScore);
             Assert.Equal(0, result.AwayTeamScore);
         }
+
+        [Theory]
+        [MemberData(nameof(GetData), parameters: 5)]
+        public void Matches_PropertyShouldReturnAllStartedMatches(IEnumerable<(string, string)> enumerable)
+        {
+            // Arrange
+
+            var scoreboard = new Scoreboard();
+
+            // Act
+
+            foreach (var item in enumerable)
+                scoreboard.Start(item.Item1, item.Item2);
+
+            // Assert
+
+            Assert.Equal(enumerable.Count(), scoreboard.Matches.Count);
+
+            foreach (var valueTuple in enumerable)
+            {
+                var matchExists = scoreboard.Matches.Any(match =>
+                    match.HomeTeam == valueTuple.Item1 && match.AwayTeam == valueTuple.Item2);
+
+                Assert.True(matchExists, $"Match not found for teams: {valueTuple.Item1} vs {valueTuple.Item2}");
+            }
+        }
+
+        public static IEnumerable<object[]> GetData(int count)
+        {
+            var dataset = new (string, string)[]
+            {
+                ("Dinamo", "Arsenal"),
+                ("Barcelona", "Madrid"),
+                ("NYT", "CaliforniaBikers"),
+                ("Juventus", "Real Madrid"),
+                ("AJAX", "Portu"),
+            };
+
+            yield return new object[] { dataset };
+        }
     }
 }
