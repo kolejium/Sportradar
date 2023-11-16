@@ -1,16 +1,36 @@
-﻿namespace FootballWorldCupScoreboard
+﻿namespace FootballWorldCupScoreboard;
+
+public class Scoreboard
 {
-    public class Scoreboard
+    #region [ Variables ]
+
+    private readonly List<Match> _matches;
+
+    #endregion
+
+    #region [ Properties ]
+
+    public IReadOnlyList<Match> Matches => _matches;
+
+    #endregion
+
+    public Scoreboard()
     {
-        public Match Start(string homeTeamName, string awayTeamName)
-        {
-            if (string.IsNullOrEmpty(homeTeamName))
-                throw new ArgumentException("The team name can't be empty or null", nameof(homeTeamName));
+        _matches = new List<Match>();
+    }
 
-            if (string.IsNullOrEmpty(awayTeamName))
-                throw new ArgumentException("The team name can't be empty or null", nameof(awayTeamName));
+    public Match Start(string homeTeamName, string awayTeamName)
+    {
+        if (string.IsNullOrEmpty(homeTeamName))
+            throw new ArgumentException("The team name can't be empty or null", nameof(homeTeamName));
 
-            return new Match(homeTeamName, awayTeamName);
-        }
+        if (string.IsNullOrEmpty(awayTeamName))
+            throw new ArgumentException("The team name can't be empty or null", nameof(awayTeamName));
+
+        var result = new Match(homeTeamName, awayTeamName);
+
+        _matches.Add(result);
+
+        return result;
     }
 }
