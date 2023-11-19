@@ -6,13 +6,22 @@ public class Match
 
     public string AwayTeam { get; }
 
-    public byte HomeTeamScore { get; }
-    public byte AwayTeamScore { get; }
+    private byte _homeTeamScore;
+    private byte _awayTeamScore;
+
+    public byte HomeTeamScore => _homeTeamScore;
+    public byte AwayTeamScore => _awayTeamScore;
 
     public Match(string homeTeam, string awayTeam)
     {
         HomeTeam = homeTeam;
         AwayTeam = awayTeam;
-        HomeTeamScore = AwayTeamScore = 0;
+        _homeTeamScore = _awayTeamScore = 0;
+    }
+
+    public void UpdateScore(byte homeTeamScore, byte awayTeamScore)
+    {
+        _homeTeamScore = homeTeamScore;
+        _awayTeamScore = awayTeamScore;
     }
 }
