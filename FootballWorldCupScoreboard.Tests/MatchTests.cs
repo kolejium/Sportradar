@@ -7,12 +7,15 @@ public class MatchTests
     [Theory, MemberData(nameof(Scores))]
     public void UpdateScore_OnSuccess_ShouldChangeValuesOfProperties(int newHomeTeamScore, int newAwayTeamScore)
     {
+        // Arrange
         var match = new Match("NYFC", "Arcenal");
 
-        match.UpdateScore(3, 5);
+        // Act
+        match.UpdateScore((byte) newHomeTeamScore, (byte) newAwayTeamScore);
         
-        Assert.True(match.HomeTeamScore == 3);
-        Assert.True(match.AwayTeamScore == 5);
+        // Assert
+        Assert.True(match.HomeTeamScore == newHomeTeamScore);
+        Assert.True(match.AwayTeamScore == newAwayTeamScore);
     }
 
 
