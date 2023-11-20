@@ -95,6 +95,16 @@ namespace FootballWorldCupScoreboard.Tests
             Assert.DoesNotContain(match, scoreboard.Matches);
         }
 
+        [Fact]
+        public void Finish_Throw_WhenArgumentIsNull()
+        {
+            // Arrange
+            var scoreboard = new Scoreboard();
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => scoreboard.Finish(null));
+        }
+
         public static IEnumerable<object[]> GetData(int count)
         {
             var dataset = new (string, string)[]
