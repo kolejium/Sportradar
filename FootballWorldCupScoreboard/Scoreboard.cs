@@ -44,6 +44,6 @@ public class Scoreboard
 
     public IEnumerable<Match> Get()
     {
-        return _matches.OrderByDescending(match => match.TotalScore);
+        return _matches.OrderByDescending(match => match.TotalScore).ThenBy(match => Array.IndexOf(_matches.ToArray(), match));
     }
 }
