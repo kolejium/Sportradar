@@ -2,17 +2,27 @@
 
 public class Match
 {
-    public string HomeTeam { get; }
+    #region [ Variables ]
 
-    public string AwayTeam { get; }
-
-    private byte _homeTeamScore;
     private byte _awayTeamScore;
 
-    public int HomeTeamScore => _homeTeamScore;
+    private byte _homeTeamScore;
+
+    #endregion
+
+    #region [ Properties ]
+
+    public string AwayTeam { get; }
     public int AwayTeamScore => _awayTeamScore;
+    public string HomeTeam { get; }
+
+    public int HomeTeamScore => _homeTeamScore;
 
     public int TotalScore => _homeTeamScore + _awayTeamScore;
+
+    #endregion
+
+    #region [ Constructors ]
 
     public Match(string homeTeam, string awayTeam)
     {
@@ -20,6 +30,8 @@ public class Match
         AwayTeam = awayTeam;
         _homeTeamScore = _awayTeamScore = 0;
     }
+
+    #endregion
 
     public void UpdateScore(int homeTeamScore, int awayTeamScore)
     {

@@ -14,9 +14,27 @@ public class Scoreboard
 
     #endregion
 
+    #region [ Constructors ]
+
     public Scoreboard()
     {
         _matches = new List<Match>();
+    }
+
+    #endregion
+
+    public bool Finish(Match match)
+    {
+        if (match == null)
+            throw new ArgumentNullException(nameof(match), "Match can't be null");
+
+        return _matches.Remove(match);
+    }
+
+    public IEnumerable<Match> Get()
+    {
+        return _matches.OrderByDescending(match => match.TotalScore)
+            .ThenBy(match => Array.IndexOf(_matches.ToArray(), match));
     }
 
     public Match Start(string homeTeamName, string awayTeamName)
@@ -32,18 +50,5 @@ public class Scoreboard
         _matches.Add(result);
 
         return result;
-    }
-
-    public bool Finish(Match match)
-    {
-        if (match == null)
-            throw new ArgumentNullException(nameof(match), "Match can't be null");
-
-        return _matches.Remove(match);
-    }
-
-    public IEnumerable<Match> Get()
-    {
-        return _matches.OrderByDescending(match => match.TotalScore).ThenBy(match => Array.IndexOf(_matches.ToArray(), match));
     }
 }
