@@ -105,15 +105,59 @@ namespace FootballWorldCupScoreboard.Tests
             Assert.Throws<ArgumentNullException>(() => scoreboard.Finish(null));
         }
 
+        [Theory]
+        [MemberData(nameof(GetData), parameters: 5)]
+        public void Get_ReturnsMatchesOrderedByTheirScore(IEnumerable<(string, string)> enumerable)
+        {
+            // Arrange
+            var scoreboard = new Scoreboard();
+            Match match;
+            var i = 0;
+            var count = enumerable.Count();
+
+            foreach (var item in enumerable)
+            {
+                match = scoreboard.Start(item.Item1, item.Item2);
+
+                match.UpdateScore((byte)(count - i), (byte)(count - i));
+
+                i++;
+            }
+
+            // Act
+            var sorted = scoreboard.Get().ToList();
+
+            // Assert
+            for (var j = 0; j < sorted.Count - 1; j++)
+            {
+                Assert.True(sorted[j].TotalScore >= sorted[j + 1].TotalScore,
+                    "Matches are not ordered by their score in descending order.");
+            }
+        }
+
         public static IEnumerable<object[]> GetData(int count)
         {
-            var dataset = new (string, string)[]
+            var dataset = new[]
             {
                 ("Dinamo", "Arsenal"),
                 ("Barcelona", "Madrid"),
                 ("NYT", "CaliforniaBikers"),
                 ("Juventus", "Real Madrid"),
                 ("AJAX", "Portu"),
+            };
+
+            yield return new object[] { dataset };
+        }
+
+        public static IEnumerable<object[]> GetData2(int count)
+        {
+            var dataset = new[]
+            {
+                ("Mexico", "Canada"),
+                ("Spain", "Brazil"),
+                ("Germany", "France"),
+                ("Uruguay", "Italy"),
+                ("Argentine", "Australia"),
             };
 
             yield return new object[] { dataset };
