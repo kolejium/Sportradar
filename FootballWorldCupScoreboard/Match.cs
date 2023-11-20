@@ -12,6 +12,8 @@ public class Match
     public byte HomeTeamScore => _homeTeamScore;
     public byte AwayTeamScore => _awayTeamScore;
 
+    public int TotalScore => _homeTeamScore + _awayTeamScore;
+
     public Match(string homeTeam, string awayTeam)
     {
         HomeTeam = homeTeam;

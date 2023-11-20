@@ -41,4 +41,9 @@ public class Scoreboard
 
         return _matches.Remove(match);
     }
+
+    public IEnumerable<Match> Get()
+    {
+        return _matches.OrderByDescending(match => match.TotalScore);
+    }
 }
