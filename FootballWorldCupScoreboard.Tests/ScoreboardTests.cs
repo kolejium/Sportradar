@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FluentAssertions;
 
 namespace FootballWorldCupScoreboard.Tests;
@@ -97,6 +98,8 @@ public class ScoreboardTests
         var sorted = scoreboard.Get().ToList();
 
         // Assert
+        var matches = scoreboard.Matches.ToArray();
+
         Assert.Equal(list.Count, sorted.Count);
 
         for (var i = 0; i < sorted.Count - 1; i++)
@@ -104,8 +107,8 @@ public class ScoreboardTests
             Assert.True(sorted[i].TotalScore >= sorted[i + 1].TotalScore);
 
             if (sorted[i].TotalScore == sorted[i + 1].TotalScore)
-                Assert.True(Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i])
-                            < Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i + 1]));
+                Assert.True(Array.IndexOf(matches, sorted[i])
+                            > Array.IndexOf(matches, sorted[i + 1]));
         }
     }
 
