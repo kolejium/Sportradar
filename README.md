@@ -31,3 +31,7 @@ The summary should be as follows:
   3. Mexico 0 - Canada 5
   4. Argentina 3 - Australia 1
   5. Germany 2 - France 2
+
+# Notes
+
+There is no information in the task about whether to store status of the match (in progress / completed / not started). - not impl
