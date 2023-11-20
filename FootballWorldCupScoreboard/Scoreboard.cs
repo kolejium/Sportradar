@@ -33,4 +33,9 @@ public class Scoreboard
 
         return result;
     }
+
+    public bool Finish(Match match)
+    {
+        return _matches.Remove(match);
+    }
 }
