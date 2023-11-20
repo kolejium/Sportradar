@@ -36,6 +36,9 @@ public class Scoreboard
 
     public bool Finish(Match match)
     {
+        if (match == null)
+            throw new ArgumentNullException(nameof(match), "Match can't be null");
+
         return _matches.Remove(match);
     }
 }
