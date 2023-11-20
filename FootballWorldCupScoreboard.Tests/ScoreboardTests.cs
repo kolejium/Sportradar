@@ -106,8 +106,8 @@ namespace FootballWorldCupScoreboard.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GetData), parameters: 5)]
-        public void Get_ReturnsMatchesOrderedByTheirScore(IEnumerable<(string, string)> enumerable)
+        [MemberData(nameof(GetData2), parameters: 5)]
+        public void Get_ReturnsMatchesOrderedByTheirScore(IEnumerable<(string, string, int, int)> enumerable)
         {
             // Arrange
             var scoreboard = new Scoreboard();
@@ -135,6 +135,27 @@ namespace FootballWorldCupScoreboard.Tests
             }
         }
 
+        [Theory]
+        [MemberData(nameof(GetData2), parameters: 5)]
+        public void Get_ReturnsMatchesOrderedByTheirStartTimeDesc(IEnumerable<(string, string, int, int)> enumerable)
+        {
+            // Arrange
+            var scoreboard = new Scoreboard();
+
+            foreach (var item in enumerable) 
+                scoreboard.Start(item.Item1, item.Item2);
+
+            // Act
+            var sorted = scoreboard.Get().ToList();
+
+            // Assert
+            for (var i = 0; i < sorted.Count - 1; i++)
+            {
+                Assert.True(Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i])
+                            < Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i + 1]));
+            }
+        }
+
         public static IEnumerable<object[]> GetData(int count)
         {
             var dataset = new[]
@@ -153,11 +174,11 @@ namespace FootballWorldCupScoreboard.Tests
         {
             var dataset = new[]
             {
-                ("Mexico", "Canada"),
-                ("Spain", "Brazil"),
-                ("Germany", "France"),
-                ("Uruguay", "Italy"),
-                ("Argentine", "Australia"),
+                ("Mexico", "Canada", 0, 5),
+                ("Spain", "Brazil", 10, 2),
+                ("Germany", "France", 2, 2),
+                ("Uruguay", "Italy", 6, 6),
+                ("Argentine", "Australia", 3, 1),
             };
 
             yield return new object[] { dataset };
