@@ -156,6 +156,40 @@ namespace FootballWorldCupScoreboard.Tests
             }
         }
 
+        [Theory]
+        [MemberData(nameof(GetData2), parameters: 5)]
+        public void Get_ReturnsMatchesOrderedByTheirScore_ThanByTheirStartTime(IEnumerable<(string, string, int, int)> enumerable)
+        {
+            // Arrange
+            var scoreboard = new Scoreboard();
+            var list = enumerable.ToList();
+            Match match;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                match = scoreboard.Start(list[i].Item1, list[i].Item2);
+
+                match.UpdateScore((byte)list[i].Item3, (byte)list[i].Item4);
+            }
+
+            // Act
+            var sorted = scoreboard.Get().ToList();
+
+            // Assert
+            Assert.Equal(list.Count, sorted.Count);
+
+            for (var i = 0; i < sorted.Count - 1; i++)
+            {
+                Assert.True(sorted[i].TotalScore >= sorted[i + 1].TotalScore);
+
+                if (sorted[i].TotalScore == sorted[i + 1].TotalScore)
+                {
+                    Assert.True(Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i])
+                                < Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i + 1]));
+                }
+            }
+        }
+
         public static IEnumerable<object[]> GetData(int count)
         {
             var dataset = new[]
