@@ -80,6 +80,21 @@ namespace FootballWorldCupScoreboard.Tests
             }
         }
 
+        [Fact]
+        public void Finish_RemovesMatchFromMatchesProperty()
+        {
+            // Arrange
+            var scoreboard = new Scoreboard();
+            var match = scoreboard.Start("TeamA", "TeamB");
+
+            // Act
+            var matchFinished = scoreboard.Finish(match);
+
+            // Assert
+            Assert.True(matchFinished);
+            Assert.DoesNotContain(match, scoreboard.Matches);
+        }
+
         public static IEnumerable<object[]> GetData(int count)
         {
             var dataset = new (string, string)[]
