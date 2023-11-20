@@ -128,7 +128,7 @@ public class ScoreboardTests
         // Assert
         for (var i = 0; i < sorted.Count - 1; i++)
             Assert.True(Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i])
-                        < Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i + 1]));
+                        > Array.IndexOf(scoreboard.Matches.ToArray(), sorted[i + 1]));
     }
 
     [Theory]
